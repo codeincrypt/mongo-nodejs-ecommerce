@@ -24,7 +24,6 @@ if(SERVER.toLowerCase() === 'localhost' ||
 
 } else {
   uri = `mongodb+srv://${username}:${password}@${cluster}/${dbname}`;
-  // uri = "mongodb+srv://karthik-dell:x6cPNVZP6XuTnqh3@cluster0.bksct.mongodb.net/ecommerce";
   options = {
     useNewUrlParser: true,
     useUnifiedTopology: true
