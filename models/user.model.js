@@ -23,6 +23,19 @@ const userSchema = new mongoose.Schema({
       type: Number,
       default:null
     },
+    signupSession : {
+        type : String,
+    },
+    accountStatus : {
+        type: Number,
+        default:0
+    },
+    otp : {
+        type: String,
+    },
+    otptimestamp : {
+        type: String,
+    },
     date: { type: Date, default: Date.now },
 })
 

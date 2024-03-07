@@ -22,7 +22,7 @@ module.exports = {
     IncorrectPassword: 'The password entered is incorrect!',
     AccountDeactivate: 'Your account has been deactivated on the platform, Please contact admin for help!',
     OtpTimeOut: 'Otp has timed out, new Otp! sent successfully',
-    InvalidOtp: 'Wrong Otp',
+    InvalidOtp: 'Otp Expired or Invalid Otp',
     NextDateError: 'Next action date must be greater than today',
     IsAdminError: 'Only Admin can Filter by this',
     TransitionNotAllowed:'transition not Allowed',

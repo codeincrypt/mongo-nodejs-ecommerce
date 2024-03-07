@@ -1,12 +1,31 @@
 const User = require("../models/user.model")
 
 module.exports = {
-    getUsersById : async(id) => {
+    getUsersByKey : async(item) => {
         try {
-            const response = User.findOne({id})
+            const response = User.findOne(item, {otp:0, otptimestamp:1}).select("otp otptimestamp email name signupSession")
             return response
         } catch (error) {
-            console.error('Error in getUsersById : ', error);
+            console.error('Error in getUsersByKey : ', error);
+            throw error;
+        }
+    },
+    getUsersById : async(_id) => {
+        try {
+            const response = User.findOne({_id})
+            return response
+        } catch (error) {
+            console.error('Error in getUsersByKey : ', error);
+            throw error;
+        }
+    },
+    getUsersByEmail : async(email) => {
+        try {
+            // const response = User.findOne({email}).select("name email phone -_id")
+            const response = User.findOne({email}, {name:1, email:1, phone:1, _id:0})
+            return response
+        } catch (error) {
+            console.error('Error in getUsersByKey : ', error);
             throw error;
         }
     },
@@ -23,6 +42,20 @@ module.exports = {
         try {
             let newEntry = new User(item)
             const response = await newEntry.save()
+            return { status:1, data:response }
+        } catch (error) {
+            console.error('Error in createNewUser : ', error);
+            let typesdata = Object.keys(error.keyValue)
+            if(error.code === 11000){
+                return { status:0, data:`${typesdata[0]} already exists` }
+            } else {
+                throw error;
+            }
+        }
+    },
+    userAccountActivate : async(filter, update) => {
+        try {
+            const response = await User.findOneAndUpdate(filter, update)
             return { status:1, data:response }
         } catch (error) {
             console.error('Error in createNewUser : ', error);

@@ -7,5 +7,6 @@ const { validateLogin, validateSignup } = require('../middleware/validation/requ
 
 userRouter.post('/signup', validateSignup, authController.userSignup);
 userRouter.post('/login', validateLogin, authController.userLogin);
+userRouter.post('/verifySignup', authController.userSignupVerifyOTP);
 
 module.exports = {userRouter, adminRouter};
