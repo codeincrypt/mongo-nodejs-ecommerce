@@ -1,20 +1,51 @@
-const { blogs } = require('../services/index');
-const { successCode, errorCode } = require('../util/message');
+const {productService} = require('../services/index');
+const {errorCode, successCode} = require('../utils/message');
+const { UnauthorizedError, handleCustomError } = require("../utils/errors");
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     addProduct : async (req, res) => {
-        const { title, description,  } = req.body;
+        const { title, description, image1, variants, categoryId } = req.body;
         try {
-            // const response = await blogs.createNewBlog(title, description, authorId);
-            // return res.send({
-            //     statusCode:successCode,
-            //     message: 'New Blog created successfully'
-            // });
+            let productId = uuidv4();
+            let item = {title, description, image1, productId, categoryId}
+            const response1 = await productService.createNewProduct(item);
+            variants.map((item) => {
+                item.productId = response1.data._id;
+                item.variantId = uuidv4();
+            })
+            console.log( variants);
+            const response2 = await productService.createNewVariants(variants);
+            let countVariant = await response2.data.length
+            return res.send({statusCode:successCode, message: `New Product ${title} with ${countVariant} Variants added successfully`});
         } catch (error) {
-            return res.status(500).send({
-                statusCode:errorCode,
-                message: error.message
-            });
+            console.log("PRODUCT CONTROLLER -- addProduct :: ", error);
+            return handleCustomError(res, error)
+        }
+    },
+    getProductById : async (req, res) => {
+        const { id } = req.params;
+        try {
+            const response = await productService.getProductById(id);
+            if(response){
+                return res.send({statusCode:successCode, data : response, message: 'Product fetched successfully'});
+            } else {
+                return res.send({statusCode:successCode, data : {}, message: 'No Product found from this Product Id'});
+            }
+        } catch (error) {
+            console.log("PRODUCT CONTROLLER -- addProduct :: ", error);
+            return handleCustomError(res, error)
+        }
+    },
+    getProducts : async (req, res) => {
+        const {page, limit} = req.query
+        try {
+            let skip = (page-1)*limit
+            const response = await productService.getProducts(skip, limit);
+            return res.send({statusCode:successCode, data:response, message: 'All Product fetched successfully'});
+        } catch (error) {
+            console.log("PRODUCT CONTROLLER -- addProduct :: ", error);
+            return handleCustomError(res, error)
         }
     }
 }

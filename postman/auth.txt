@@ -1,0 +1,31 @@
+SIGNUP
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/main/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name":"Kartik", "email":"kartik@gmail.com", "phone":"1234567891", "password":"123456789"
+}'
+
+VERIFY SIGNUP OTP
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/main/verifySignup' \
+--header 'Content-Type: application/json' \
+--data '{
+    "signupSession":"$2b$10$iWXMsDuQghSb7aVtugFCAOEKhWJ716bOSaOVVoAyfZ/QK9EjCimvW", "otp":"507302"
+}'
+
+LOGIN
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/main/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email":"kartik@gmail.com", "password":"123456"
+}'
+
+VERIFY SIGNUP OTP
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/main/verifyOtp' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email":"kartik@gmail.com", "password":"123456", "otp":"507302"
+}'

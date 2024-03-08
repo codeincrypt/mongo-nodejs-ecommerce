@@ -12,7 +12,7 @@ module.exports = {
     },
     getUsersById : async(_id) => {
         try {
-            const response = User.findOne({_id})
+            const response = await User.findOne({_id})
             return response
         } catch (error) {
             console.error('Error in getUsersByKey : ', error);
@@ -21,8 +21,7 @@ module.exports = {
     },
     getUsersByEmail : async(email) => {
         try {
-            // const response = User.findOne({email}).select("name email phone -_id")
-            const response = User.findOne({email}, {name:1, email:1, phone:1, _id:0})
+            const response = await User.findOne({email}, {name:1, email:1, phone:1, _id:0})
             return response
         } catch (error) {
             console.error('Error in getUsersByKey : ', error);
@@ -31,7 +30,7 @@ module.exports = {
     },
     getUsers : async() => {
         try {
-            const response = User.find()
+            const response = await User.find()
             return response
         } catch (error) {
             console.error('Error in getUsers : ', error);
@@ -53,7 +52,7 @@ module.exports = {
             }
         }
     },
-    userAccountActivate : async(filter, update) => {
+    userUpdateDetails : async(filter, update) => {
         try {
             const response = await User.findOneAndUpdate(filter, update)
             return { status:1, data:response }
@@ -67,21 +66,12 @@ module.exports = {
             }
         }
     },
-    loginUser : async(item) => {
+    loginUser : async(email, password) => {
         try {
-            const response = User.findOne(item)
+            const response = await User.findOne({email})
             return response
         } catch (error) {
             console.error('Error in loginUser : ', error);
-            throw error;
-        }
-    },
-    loginUserVerifyOTP : async(item) => {
-        try {
-            const response = User.findOne(item)
-            return response
-        } catch (error) {
-            console.error('Error in loginUserVerifyOTP : ', error);
             throw error;
         }
     }

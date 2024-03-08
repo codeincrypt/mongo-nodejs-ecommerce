@@ -1,6 +1,5 @@
 const { validationResult, body, param } = require('express-validator');
 const _ = require('underscore');
-// const config = require('../../../config/config');
 const { errorCode } = require('../../utils/message');
 
 module.exports = {
@@ -30,12 +29,11 @@ module.exports = {
       next();
     }
   ],
-  validateOtpLogin : [
+  validateLoginOtp : [
     body('email').isEmail().withMessage('Invalid email'),
     body('password').isString().withMessage('User Password must be a string'),
     body('otp').isString().withMessage('Please provide Otp'),
     (req, res, next) => {
-      console.log('run')
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         const errMsg = _.pluck(errors.array(), 'msg');

@@ -1,4 +1,4 @@
 module.exports = {
-    blogService : require("./blog.service"),
+    productService : require("./product.service"),
     userService : require("./user.service")
 }
