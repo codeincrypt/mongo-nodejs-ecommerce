@@ -2,8 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const config = require('./config');
 module.exports = (app) => {
-    if (process.env.NODE_ENV !== 'local') {
-    }
     app.use(cors({
         origin:[
             'http://localhost:3000'

@@ -14,7 +14,7 @@ module.exports = {
     },
     createNewVariants : async(item) => {
         try {
-            const response = Variant.insertMany(item)
+            const response = await Variant.insertMany(item)
             return { status:1, data:response }
         } catch (error) {
             console.error('Error in PRODUCT SERVICE :: createNewVariants : ', error);

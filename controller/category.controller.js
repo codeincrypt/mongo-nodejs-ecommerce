@@ -4,7 +4,7 @@ const { UnauthorizedError, handleCustomError } = require("../utils/errors");
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
-    addcategory : async (req, res) => {
+    addNewCategory : async (req, res) => {
         const { title, parentId, image1 } = req.body;
         try {
             let categoryId = uuidv4();

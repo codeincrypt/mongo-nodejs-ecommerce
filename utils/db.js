@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+const config = require('./config');
 
 let db, uri, options
 
-const username = encodeURIComponent(process.env.DB_USER);
-const password = encodeURIComponent(process.env.DB_PASS);
-const cluster = process.env.DB_HOST;
-const dbname = process.env.DB_NAME;
+const username = encodeURIComponent(config.DB_USER);
+const password = encodeURIComponent(config.DB_PASS);
+const cluster = config.DB_HOST;
+const dbname = config.DB_NAME;
 
-const SERVER = process.env.NODE_ENV
+const SERVER = config.NODE_ENV
 
 if(SERVER.toLowerCase() === 'localhost' || 
   SERVER.toLowerCase() === 'local' || 
