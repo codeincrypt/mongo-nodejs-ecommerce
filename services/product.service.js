@@ -3,13 +3,12 @@ const Variant = require("../models/variant.model")
 
 module.exports = {
     createNewProduct : async(item) => {
-        console.log("item", item);
         try {
             let newEntry = new Product(item)
             const response = await newEntry.save()
             return { status:1, data:response }
         } catch (error) {
-            console.error('Error in SERVICE :: createNewProduct : ', error);
+            console.error('Error in PRODUCT SERVICE :: createNewProduct : ', error);
             throw error;
         }
     },
@@ -18,7 +17,7 @@ module.exports = {
             const response = Variant.insertMany(item)
             return { status:1, data:response }
         } catch (error) {
-            console.error('Error in createNewVariants : ', error);
+            console.error('Error in PRODUCT SERVICE :: createNewVariants : ', error);
             throw error;
         }
     },
@@ -27,7 +26,7 @@ module.exports = {
             const response = Product.findById({_id}, {__v:0})
             return response
         } catch (error) {
-            console.error('Error in createNewVariants : ', error);
+            console.error('Error in PRODUCT SERVICE :: getProductById : ', error);
             throw error;
         }
     },
@@ -37,7 +36,7 @@ module.exports = {
             .sort({ _id:-1})
             return response
         } catch (error) {
-            console.error('Error in createNewVariants : ', error);
+            console.error('Error in PRODUCT SERVICE :: getProducts : ', error);
             throw error;
         }
     }

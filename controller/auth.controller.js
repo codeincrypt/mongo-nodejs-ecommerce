@@ -13,10 +13,11 @@ module.exports = {
         try {
             let uuid = uuidv4();
             let otp = Math.floor(Math.random() * 900000) + 100000;
-            let hashedOTP = await bcrypt.hash(otp.toString(), 10)
+            // let hashedOTP = await bcrypt.hash(otp.toString(), 10)
             let current_timestamp = Math.floor(Date.now() / 1000)
+            let hashedPassword = await bcrypt.hash(String(password), await bcrypt.genSalt(10));
             let signupSession = await bcrypt.hash(`${current_timestamp}-${email}`, await bcrypt.genSalt(10))
-            let items = {uuid, name, email, phone, password, signupSession, otp:otp, otptimestamp:current_timestamp}
+            let items = {uuid, name, email, phone, password:hashedPassword, signupSession, otp:otp, otptimestamp:current_timestamp}
             const users = await userService.createNewUser(items);
             if(users.status === 0){
                 return res.json({statusCode:errorCode, message:users.data});
@@ -36,12 +37,11 @@ module.exports = {
             let update = { accountStatus:1 }
             let filter = { signupSession }
             const users = await userService.getUsersByKey({signupSession})
-            const usersData = await userService.getUsersByEmail(users.email)
-            
             if (users) {
+                const usersData = await userService.getUsersByEmail(users.email)
                 let current_timestamp = Math.floor(Date.now() / 1000)
                 if((Number(users.otptimestamp)+10020 > Number(current_timestamp) && (Number(users.otp) === Number(otp)))){
-                    const updateData = await userService.userUpdateDetails(filter, update);
+                    await userService.userUpdateDetails(filter, update);
                     const accessToken = jwt.sign(
                         {
                             user: {
@@ -51,14 +51,13 @@ module.exports = {
                             },
                         },
                         ACCESS_TOKEN_SECERT,
-                        { expiresIn: "15m" }
-                    );
+                        { expiresIn: "15m" });
                     return res.json({statusCode:successCode, token:accessToken, data:usersData, message:'successful'});
                 }
                 throw new UnauthorizedError(InvalidOtp);
-              } else {
+            } else {
                 throw new UnauthorizedError(InvalidLogin);
-              }
+            }
         } catch (error) {
             console.log("controller -- userLoginVerifyOTP :: ", error);
             return handleCustomError(res, error)
@@ -70,7 +69,6 @@ module.exports = {
             const users = await userService.loginUser(email);
             if (users && (await bcrypt.compare(password, users.password))) {
                 let otp = Math.floor(Math.random() * 900000) + 100000;
-                console.log("TESTING PURPOSE ONLY :: otp", otp);
                 let current_timestamp = Math.floor(Date.now() / 1000)
                 await userService.userUpdateDetails({ email }, { otp:otp, otptimestamp:current_timestamp });
                 return res.json({statusCode:successCode, message:"Login Successfully"});

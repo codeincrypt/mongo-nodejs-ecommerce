@@ -14,7 +14,6 @@ module.exports = {
                 item.productId = response1.data._id;
                 item.variantId = uuidv4();
             })
-            console.log( variants);
             const response2 = await productService.createNewVariants(variants);
             let countVariant = await response2.data.length
             return res.send({statusCode:successCode, message: `New Product ${title} with ${countVariant} Variants added successfully`});

@@ -1,7 +1,0 @@
-curl --location 'http://localhost:4010/api/main/signup' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name":"Kartik", "email":"kartik@gmail.com", "phone":"1234567891", "password":"123456789"
-}'
-
-
