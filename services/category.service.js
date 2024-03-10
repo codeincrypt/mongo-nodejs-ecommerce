@@ -13,7 +13,7 @@ module.exports = {
     },
     getCategory : async(skip, limit) => {
         try {
-            const response = Category.find({}, {title:1, categoryId:1, image1:1}, { skip: skip, limit: limit })
+            const response = Category.find({}, {title:1, categoryId:1, slug:1, parentId:1, image1:1}, { skip: skip, limit: limit })
             .sort({ _id:-1})
             return response
         } catch (error) {

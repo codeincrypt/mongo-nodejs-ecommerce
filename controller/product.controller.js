@@ -41,6 +41,9 @@ module.exports = {
         try {
             let skip = (page-1)*limit
             const response = await productService.getProducts(skip, limit);
+            if(!response){
+                return res.send({statusCode:successCode, data:[], message: 'All Product fetched successfully'});
+            }
             return res.send({statusCode:successCode, data:response, message: 'All Product fetched successfully'});
         } catch (error) {
             console.log("PRODUCT CONTROLLER -- addProduct :: ", error);

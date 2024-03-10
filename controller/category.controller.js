@@ -2,13 +2,15 @@ const {categoryService} = require('../services/index');
 const {errorCode, successCode} = require('../utils/message');
 const { UnauthorizedError, handleCustomError } = require("../utils/errors");
 const { v4: uuidv4 } = require('uuid');
+const slugify = require('slugify')
 
 module.exports = {
     addNewCategory : async (req, res) => {
         const { title, parentId, image1 } = req.body;
         try {
             let categoryId = uuidv4();
-            let item = {title, parentId, image1, categoryId}
+            let categorySlug = await slugify(title, {replacement: '-', lower: true})
+            let item = {title, parentId, slug:categorySlug, image1, categoryId}
             await categoryService.createNewCategory(item);
             return res.send({statusCode:successCode, message: `New category ${title} added successfully`});
         } catch (error) {

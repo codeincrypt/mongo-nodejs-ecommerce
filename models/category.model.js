@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
 
 const CategorySchema = new mongoose.Schema({
+  categoryId: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
   },
-  categoryId: {
-    type: Number,
+  slug: {
+    type: String,
     required: true,
   },
   parentId: {

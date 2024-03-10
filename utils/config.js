@@ -1,9 +1,9 @@
 require('dotenv').config()
-console.log('====================================');
-console.log("NODE_ENV :: ", process.env.NODE_ENV);
-console.log('====================================');
+
+const ENVIRONMENT_TYPE = process.env.NODE_ENV
+
 require('dotenv').config({
-    path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development'
+    path: ENVIRONMENT_TYPE === 'production' ? '.env.production' : '.env.development'
 });
 module.exports = {
     NODE_ENV    : process.env.NODE_ENV,

@@ -1,2 +1,39 @@
+GET PRODUCT
+---------------------------------------------------------------------------------
 curl --location 'http://localhost:4010/api/admin/getProducts?page=2&limit=2' \
 --data ''
+
+ADD PRODUCT
+---------------------------------------------------------------------------------
+curl --location --request POST 'http://localhost:4010/api/admin/addProduct' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title":"Mi Tab 5", "description":"Mi Tab 5", "image1":"mitab.png", "categoryId":"1",
+    "variants":[
+        {
+            "variantName":"128GB",
+            "price":"100",
+            "discount":"10",
+            "discountType":"FLAT"
+        },
+        {
+            "variantName":"256GB",
+            "price":"200",
+            "discount":"10",
+            "discountType":"PERCENTAGE"
+        }
+    ]
+}'
+
+ADD CATEGORY
+---------------------------------------------------------------------------------
+curl --location --request POST 'http://localhost:4010/api/admin/addCategory' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title":"Electronics", "parentId":"65ede2690afaf5dfef21c1ce", "image1":"mobile.png"
+}'
+
+CATEGORY
+---------------------------------------------------------------------------------
+curl --location --request GET 'http://localhost:4010/api/admin/getCategory?page=1&limit=2' \
+--data-raw ''

@@ -1,5 +1,4 @@
 const {userService} = require('../services/index');
-
 const {errorCode, successCode} = require('../utils/message')
 
 module.exports = {
