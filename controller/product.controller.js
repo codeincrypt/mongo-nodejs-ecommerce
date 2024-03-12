@@ -32,7 +32,7 @@ module.exports = {
                 return res.send({statusCode:successCode, data : {}, message: 'No Product found from this Product Id'});
             }
         } catch (error) {
-            console.log("PRODUCT CONTROLLER -- addProduct :: ", error);
+            console.log("PRODUCT CONTROLLER -- getProductById :: ", error);
             return handleCustomError(res, error)
         }
     },
@@ -46,7 +46,7 @@ module.exports = {
             }
             return res.send({statusCode:successCode, data:response, message: 'All Product fetched successfully'});
         } catch (error) {
-            console.log("PRODUCT CONTROLLER -- addProduct :: ", error);
+            console.log("PRODUCT CONTROLLER -- getProducts :: ", error);
             return handleCustomError(res, error)
         }
     }

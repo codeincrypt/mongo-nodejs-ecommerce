@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const ProductStockSchema = new mongoose.Schema({
-    productid : {
-        type : String,
+    productId : {
+        type : mongoose.Schema.Types.ObjectId, ref:'Product',
         required : true
     },
-    variantid : {
-        type : String,
+    variantId : {
+        type : mongoose.Schema.Types.ObjectId, ref:'Variant',
         required : true
     },
     quatity : {
@@ -22,7 +22,7 @@ const ProductStockSchema = new mongoose.Schema({
         required : true
     },
     date: { type: Date, default: Date.now },
-})
+}, {timestamps:true, timeseries:true})
 
 const ProductStock = mongoose.model("productstock", ProductStockSchema)
 

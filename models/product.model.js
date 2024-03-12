@@ -14,7 +14,7 @@ const ProductSchema = new mongoose.Schema({
         required : true
     },
     categoryId : {
-        type : Number,
+        type : mongoose.Schema.Types.ObjectId, ref:'Category',
         required : true
     },
     image1 : {
@@ -27,8 +27,8 @@ const ProductSchema = new mongoose.Schema({
     image3 : {
         type : String
     },
-    date: { type: Date, default: Date.now },
-})
+    date: { type: Date, default: Date.now }
+}, {timestamps:true, timeseries:true})
 
 const Product = mongoose.model("Product", ProductSchema)
 
