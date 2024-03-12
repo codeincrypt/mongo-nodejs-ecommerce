@@ -1,0 +1,5 @@
+USER PROFILE
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/user/profile' \
+--header 'Content-Type: application/json' \
+--data ''

@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const {userService} = require('../services/index');
 const {errorCode, successCode, InvalidLogin, InvalidOtp} = require('../utils/message');
-const { ACCESS_TOKEN_SECERT } = require("../utils/config");
+const { JWT_SECRET } = require("../utils/config");
 const { UnauthorizedError, handleCustomError } = require("../utils/errors");
 
 module.exports = {
@@ -50,7 +50,7 @@ module.exports = {
                                 id: users.id,
                             },
                         },
-                        ACCESS_TOKEN_SECERT,
+                        JWT_SECRET,
                         { expiresIn: "15m" });
                     return res.json({statusCode:successCode, token:accessToken, data:usersData, message:'successful'});
                 }
@@ -88,16 +88,13 @@ module.exports = {
                 let current_timestamp = Math.floor(Date.now() / 1000)
                 if((Number(users.otptimestamp)+10020 > Number(current_timestamp) && (Number(users.otp) === Number(otp)))){
                     const usersData = await userService.getUsersByEmail(users.email)
-                    const accessToken = jwt.sign(
-                      {
-                        user: {
-                            name: users.name,
-                            email: users.email,
-                            id: users.id,
-                        },
-                      },
-                      process.env.ACCESS_TOKEN_SECERT,
-                      { expiresIn: "15m" }
+                    const accessToken = jwt.sign({
+                        name: users.name,
+                        email: users.email,
+                        id: users._id,
+                    },
+                    JWT_SECRET,
+                    { expiresIn: "24h" }
                     );
                     return res.json({statusCode:successCode, token:accessToken, result:usersData, message:'successful'});
                 }

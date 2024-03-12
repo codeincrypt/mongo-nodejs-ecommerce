@@ -15,8 +15,23 @@ module.exports = {
                 item.variantId = uuidv4();
             })
             const response2 = await productService.createNewVariants(variants);
-            let countVariant = await response2.data.length
+            let countVariant = response2.data.length
             return res.send({statusCode:successCode, message: `New Product ${title} with ${countVariant} Variants added successfully`});
+        } catch (error) {
+            console.log("PRODUCT CONTROLLER -- addProduct :: ", error);
+            return handleCustomError(res, error)
+        }
+    },
+    addVariants : async (req, res) => {
+        const { productId, variants } = req.body;
+        try {
+            variants.map((item) => {
+                item.productId = productId;
+                item.variantId = uuidv4();
+            })
+            const response2 = await productService.createNewVariants(variants);
+            let countVariant = response2.data.length
+            return res.send({statusCode:successCode, message: `${countVariant} Variants added successfully`});
         } catch (error) {
             console.log("PRODUCT CONTROLLER -- addProduct :: ", error);
             return handleCustomError(res, error)
@@ -27,7 +42,7 @@ module.exports = {
         try {
             const response = await productService.getProductById(id);
             if(response){
-                return res.send({statusCode:successCode, data : response, message: 'Product fetched successfully'});
+                return res.send({statusCode:successCode, data : response[0], message: 'Product fetched successfully'});
             } else {
                 return res.send({statusCode:successCode, data : {}, message: 'No Product found from this Product Id'});
             }

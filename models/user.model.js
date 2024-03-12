@@ -23,9 +23,9 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    billingAddress: {
-      type: Number,
-      default:null
+    address: {
+        type: String,
+        default:null
     },
     signupSession : {
         type : String,

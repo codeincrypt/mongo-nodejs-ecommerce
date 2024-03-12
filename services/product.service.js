@@ -27,7 +27,6 @@ module.exports = {
       // const response = Product.findById({_id}, {__v:0}).populate('categoryId')
       const response = Product.aggregate([
         // Match product by ID
-        // IF IT WORKS DO NOT TOUCH
         { $match: { _id: new mongoose.Types.ObjectId(_id) } },
         // Join with category table
         {

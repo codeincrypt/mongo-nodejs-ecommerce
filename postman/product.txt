@@ -3,6 +3,13 @@ GET PRODUCT
 curl --location 'http://localhost:4010/api/admin/getProducts?page=2&limit=2' \
 --data ''
 
+
+PRODUCT VIEW
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/admin/getProducts/65eed2073ef75548c4fee5f8' \
+--data ''
+
+
 ADD PRODUCT
 ---------------------------------------------------------------------------------
 curl --location --request POST 'http://localhost:4010/api/admin/addProduct' \
@@ -19,6 +26,30 @@ curl --location --request POST 'http://localhost:4010/api/admin/addProduct' \
         {
             "variantName":"256GB",
             "price":"200",
+            "discount":"10",
+            "discountType":"PERCENTAGE"
+        }
+    ]
+}'
+
+
+
+ADD VARIANTS
+---------------------------------------------------------------------------------
+curl --location --request POST 'http://localhost:4010/api/admin/addVariants' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "productId":"1",
+    "variants":[
+        {
+            "variantName":"128GB Red",
+            "price":"150",
+            "discount":"10",
+            "discountType":"FLAT"
+        },
+        {
+            "variantName":"256GB Blue",
+            "price":"250",
             "discount":"10",
             "discountType":"PERCENTAGE"
         }

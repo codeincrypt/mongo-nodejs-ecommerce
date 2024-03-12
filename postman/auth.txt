@@ -22,7 +22,7 @@ curl --location 'http://localhost:4010/api/main/login' \
     "email":"kartik@gmail.com", "password":"123456"
 }'
 
-VERIFY SIGNUP OTP
+VERIFY LOGIN OTP
 ---------------------------------------------------------------------------------
 curl --location 'http://localhost:4010/api/main/verifyOtp' \
 --header 'Content-Type: application/json' \

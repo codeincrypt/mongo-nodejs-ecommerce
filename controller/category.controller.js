@@ -14,7 +14,7 @@ module.exports = {
             await categoryService.createNewCategory(item);
             return res.send({statusCode:successCode, message: `New category ${title} added successfully`});
         } catch (error) {
-            console.log("PRODUCT CONTROLLER -- addProduct :: ", error);
+            console.log("CATEGORY CONTROLLER -- addNewCategory :: ", error);
             return handleCustomError(res, error)
         }
     },
@@ -25,7 +25,7 @@ module.exports = {
             const response = await categoryService.getCategory(skip, limit);
             return res.send({statusCode:successCode, data:response, message: 'All Category fetched successfully'});
         } catch (error) {
-            console.log("PRODUCT CONTROLLER -- addProduct :: ", error);
+            console.log("CATEGORY CONTROLLER -- getCategory :: ", error);
             return handleCustomError(res, error)
         }
     }
