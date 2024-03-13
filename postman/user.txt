@@ -2,4 +2,30 @@ USER PROFILE
 ---------------------------------------------------------------------------------
 curl --location 'http://localhost:4010/api/user/profile' \
 --header 'Content-Type: application/json' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FydGlrIiwiZW1haWwiOiJrYXJ0aWtAZ21haWwuY29tIiwiaWQiOiI2NWU5YjQ4ZWU1YjQxMjJlMTJjNWE1M2EiLCJpYXQiOjE3MTAzMzE2NTEsImV4cCI6MTcxMDQxODA1MX0.tkPX1PXOF81hmhInnWZwFD3ADimAucPiiGapsbwDn3g' \
+--data ''
+
+
+USER ADD NEW ADDRESS
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/user/addUserAddress' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FydGlrIiwiZW1haWwiOiJrYXJ0aWtAZ21haWwuY29tIiwiaWQiOiI2NWU5YjQ4ZWU1YjQxMjJlMTJjNWE1M2EiLCJpYXQiOjE3MTAzMzE2NTEsImV4cCI6MTcxMDQxODA1MX0.tkPX1PXOF81hmhInnWZwFD3ADimAucPiiGapsbwDn3g' \
+--data '{
+    "addressline1":"AB 102, Samarpally", 
+    "addressline2":"11 Pally",
+    "city":"Kolkata",
+    "district":"Noth 24 Parganas",
+    "pincode":"700107",
+    "landmark":"Near 206 Bridge",
+    "state":"West Bengal",
+    "country":"India"
+}'
+
+
+USER'S ALL ADDRESS LIST
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/user/getUserAddress' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FydGlrIiwiZW1haWwiOiJrYXJ0aWtAZ21haWwuY29tIiwiaWQiOiI2NWU5YjQ4ZWU1YjQxMjJlMTJjNWE1M2EiLCJpYXQiOjE3MTAzMzE2NTEsImV4cCI6MTcxMDQxODA1MX0.tkPX1PXOF81hmhInnWZwFD3ADimAucPiiGapsbwDn3g' \
 --data ''

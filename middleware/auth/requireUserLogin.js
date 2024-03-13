@@ -12,11 +12,11 @@ const isTokenProvided = (req, res, next) => {
 
 const isAuthenticated = (req, res, next) => {
     const token = req.headers['authorization'];
-    jwt.verify(token, config.JWT_SECRET, async(err, decoded) => {
+    jwt.verify(token, config.JWT_SECRET, async(err, payload) => {
         if (err) {
             return res.status(403).json({ message: AuthenticationFailed, statusCode:errorCode});
         }
-        req._id = decoded._id;
+        req.user = payload;
         next()
     })
 }

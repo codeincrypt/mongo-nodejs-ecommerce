@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         required : true
     },
     address: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId, ref:'userAddress',
         default:null
     },
     signupSession : {
