@@ -2,7 +2,7 @@ USER PROFILE
 ---------------------------------------------------------------------------------
 curl --location 'http://localhost:4010/api/user/profile' \
 --header 'Content-Type: application/json' \
---header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FydGlrIiwiZW1haWwiOiJrYXJ0aWtAZ21haWwuY29tIiwiaWQiOiI2NWU5YjQ4ZWU1YjQxMjJlMTJjNWE1M2EiLCJpYXQiOjE3MTAzMzE2NTEsImV4cCI6MTcxMDQxODA1MX0.tkPX1PXOF81hmhInnWZwFD3ADimAucPiiGapsbwDn3g' \
+--header 'authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FydGlrIiwiZW1haWwiOiJrYXJ0aWtAZ21haWwuY29tIiwiaWQiOiI2NWU5YjQ4ZWU1YjQxMjJlMTJjNWE1M2EiLCJpYXQiOjE3MTAzMzE2NTEsImV4cCI6MTcxMDQxODA1MX0.tkPX1PXOF81hmhInnWZwFD3ADimAucPiiGapsbwDn3g' \
 --data ''
 
 
@@ -12,14 +12,36 @@ curl --location 'http://localhost:4010/api/user/addUserAddress' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FydGlrIiwiZW1haWwiOiJrYXJ0aWtAZ21haWwuY29tIiwiaWQiOiI2NWU5YjQ4ZWU1YjQxMjJlMTJjNWE1M2EiLCJpYXQiOjE3MTAzMzE2NTEsImV4cCI6MTcxMDQxODA1MX0.tkPX1PXOF81hmhInnWZwFD3ADimAucPiiGapsbwDn3g' \
 --data '{
-    "addressline1":"AB 102, Samarpally", 
-    "addressline2":"11 Pally",
+    "fullName":"Sumit Kumar", 
+    "phoneNumber":"1234567890", 
+    "address":"11 Rajdanga", 
     "city":"Kolkata",
-    "district":"Noth 24 Parganas",
+    "district":"Kolkata",
     "pincode":"700107",
-    "landmark":"Near 206 Bridge",
+    "landmark":"Near Lake Mall",
     "state":"West Bengal",
-    "country":"India"
+    "country":"India",
+    "addressType":"HOME"
+}'
+
+
+USER UPDATE ADDRESS
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/user/updateUserAddress' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FydGlrIiwiZW1haWwiOiJrYXJ0aWtAZ21haWwuY29tIiwiaWQiOiI2NWU5YjQ4ZWU1YjQxMjJlMTJjNWE1M2EiLCJpYXQiOjE3MTAzMzE2NTEsImV4cCI6MTcxMDQxODA1MX0.tkPX1PXOF81hmhInnWZwFD3ADimAucPiiGapsbwDn3g' \
+--data '{
+    "addressId":"65f2cfbbef53f4c473ba0e26",
+    "fullName":"KARTIK", 
+    "phoneNumber":"2234567890", 
+    "address":"2 Rajdanga", 
+    "city":"2 Kolkata",
+    "district":"2 Kolkata",
+    "pincode":"900107",
+    "landmark":"2 Near Lake Mall",
+    "state":"2 West Bengal",
+    "country":"2 India",
+    "addressType":"OFFICE"
 }'
 
 
@@ -29,3 +51,13 @@ curl --location 'http://localhost:4010/api/user/getUserAddress' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FydGlrIiwiZW1haWwiOiJrYXJ0aWtAZ21haWwuY29tIiwiaWQiOiI2NWU5YjQ4ZWU1YjQxMjJlMTJjNWE1M2EiLCJpYXQiOjE3MTAzMzE2NTEsImV4cCI6MTcxMDQxODA1MX0.tkPX1PXOF81hmhInnWZwFD3ADimAucPiiGapsbwDn3g' \
 --data ''
+
+
+USER UPDATE / SET DEFAULT ADDRESS FOR ORDER / DELIVERY
+---------------------------------------------------------------------------------
+curl --location 'http://localhost:4010/api/user/updateDefaultAddress' \
+--header 'Content-Type: application/json' \
+--header 'authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FydGlrIiwiZW1haWwiOiJrYXJ0aWtAZ21haWwuY29tIiwiaWQiOiI2NWU5YjQ4ZWU1YjQxMjJlMTJjNWE1M2EiLCJpYXQiOjE3MTAzMzE2NTEsImV4cCI6MTcxMDQxODA1MX0.tkPX1PXOF81hmhInnWZwFD3ADimAucPiiGapsbwDn3g' \
+--data '{
+    "addressId":"65f1ac803b70c2e2af2714d4"
+}'

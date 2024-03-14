@@ -19,32 +19,41 @@ module.exports = {
         // Join with userAddress table
         {
           $lookup: {
-            from: "userAddress",
+            from: "useraddresses",
             localField: "address",
             foreignField: "_id",
             as: "addressDetail",
           },
         },
         // Unwind userAddress array (this unwind is used to convert single array to an object)
-        { $unwind: "$address" },
+        { $unwind: "$addressDetail" },
         // project is used to filter the data which i want from all the table
         {
           $project: {
             _id: 1,
+            uuid:1,
             name: 1,
             email: 1,
             phone: 1,
             accountStatus: 1,
             address: 1,
+            date: 1,
             addressDetail: {
               _id: 1,
-              addressline1: 1,
+              fullName: 1,
+              phoneNumber: 1,
+              address: 1,
               city: 1,
+              district: 1,
+              pincode: 1,
+              landmark: 1,
+              state: 1,
+              country: 1,
+              addressType: 1,
             },
           },
         },
       ]);
-      console.log("response :: ", response);
       return response
     } catch (error) {
       console.error('USER SERVICE :: Error in getUsersByKey : ', error);
@@ -89,7 +98,7 @@ module.exports = {
       const response = await User.findOneAndUpdate(filter, update)
       return { status: 1, data: response }
     } catch (error) {
-      console.error('USER SERVICE :: Error in createNewUser : ', error);
+      console.error('USER SERVICE :: Error in userUpdateDetails : ', error);
       let typesdata = Object.keys(error.keyValue)
       if (error.code === 11000) {
         return { status: 0, data: `${typesdata[0]} already exists` }

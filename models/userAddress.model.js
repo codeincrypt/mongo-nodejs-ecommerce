@@ -5,12 +5,17 @@ const userAddressSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId, ref:'User',
         required : true
     },
-    addressline1 : {
+    fullName : {
         type : String,
         required : true
-    }, 
-    addressline2 : {
-        type : String
+    },
+    phoneNumber : {
+        type : Number,
+        required : true
+    },
+    address : {
+        type : String,
+        required : true
     },
     city : {
         type : String,
@@ -32,6 +37,10 @@ const userAddressSchema = new mongoose.Schema({
         required : true
     },
     country : {
+        type : String,
+        required : true
+    },
+    addressType : {
         type : String,
         required : true
     },

@@ -23,5 +23,14 @@ module.exports = {
             console.error('Error in addUserAddress : ', error);
             throw error;
         }
+    },
+    updateUserAddress : async (filter, update) => {
+        try {
+            const response = await UserAddress.findOneAndUpdate(filter, update)
+            return response
+        } catch (error) {
+            console.error('Error in addUserAddress : ', error);
+            throw error;
+        }
     }
 }

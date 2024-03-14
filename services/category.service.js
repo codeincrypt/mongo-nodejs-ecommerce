@@ -20,5 +20,15 @@ module.exports = {
             console.error('Error in CATEGORY SERVICE :: getCategory : ', error);
             throw error;
         }
+    },
+    getCategoryHome : async(skip, limit) => {
+        try {
+            const response = Category.find({parentId:0}, {title:1, slug:1, image1:1}, { skip: skip, limit: limit })
+            .sort({ _id:-1})
+            return response
+        } catch (error) {
+            console.error('Error in CATEGORY SERVICE :: getCategory : ', error);
+            throw error;
+        }
     }
 }
