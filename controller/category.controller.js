@@ -6,11 +6,11 @@ const slugify = require('slugify')
 
 module.exports = {
     addNewCategory : async (req, res) => {
-        const { title, parentId, image1 } = req.body;
+        const { title, parentId, image } = req.body;
         try {
             let categoryId = uuidv4();
             let categorySlug = await slugify(title, {replacement: '-', lower: true})
-            let item = {title, parentId, slug:categorySlug, image1, categoryId}
+            let item = {title, parentId, slug:categorySlug, image, categoryId}
             await categoryService.createNewCategory(item);
             return res.send({statusCode:successCode, message: `New category ${title} added successfully`});
         } catch (error) {
@@ -23,6 +23,16 @@ module.exports = {
         try {
             let skip = (page-1)*limit
             const response = await categoryService.getCategory(skip, limit);
+            return res.send({statusCode:successCode, data:response, message: 'All Category fetched successfully'});
+        } catch (error) {
+            console.log("CATEGORY CONTROLLER -- getCategory :: ", error);
+            return handleCustomError(res, error)
+        }
+    },
+    getSubCategory : async (req, res) => {
+        let slug = req.params.slug
+        try {
+            const response = await categoryService.getSubCategory(slug);
             return res.send({statusCode:successCode, data:response, message: 'All Category fetched successfully'});
         } catch (error) {
             console.log("CATEGORY CONTROLLER -- getCategory :: ", error);

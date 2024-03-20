@@ -13,8 +13,10 @@ module.exports = {
     },
     getCategory : async(skip, limit) => {
         try {
-            const response = Category.find({}, {title:1, categoryId:1, slug:1, parentId:1, image1:1}, { skip: skip, limit: limit })
+            const response = Category.find({}, {title:1, categoryId:1, slug:1, parentId:1, image:1})
             .sort({ _id:-1})
+            .skip(skip)
+            .limit(limit)
             return response
         } catch (error) {
             console.error('Error in CATEGORY SERVICE :: getCategory : ', error);
@@ -23,7 +25,19 @@ module.exports = {
     },
     getCategoryHome : async(skip, limit) => {
         try {
-            const response = Category.find({parentId:0}, {title:1, slug:1, image1:1}, { skip: skip, limit: limit })
+            const response = Category.find({parentId:0}, {title:1, slug:1, image:1})
+            .sort({ _id:-1})
+            .skip(skip)
+            .limit(limit)
+            return response
+        } catch (error) {
+            console.error('Error in CATEGORY SERVICE :: getCategory : ', error);
+            throw error;
+        }
+    },
+    getSubCategoryHome : async(slug) => {
+        try {
+            const response = Category.find({slug:0}, {title:1, slug:1, image:1})
             .sort({ _id:-1})
             return response
         } catch (error) {

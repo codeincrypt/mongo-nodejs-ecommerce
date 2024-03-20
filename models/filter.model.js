@@ -1,29 +1,28 @@
 const mongoose = require("mongoose");
 
-const CategorySchema = new mongoose.Schema({
+const FilterSchema = new mongoose.Schema({
   categoryId: {
     type: String,
     required: true,
   },
-  title: {
+  subCategoryId: {
     type: String,
     required: true,
   },
-  slug: {
+  name: {
     type: String,
     required: true,
   },
-  parentId: {
+  attributes: {
     type: String,
     required: true,
   },
-  image: {
+  status: {
     type: String,
     required: true,
-  },
-  date: { type: Date, default: Date.now },
+  }
 });
 
-const Category = mongoose.model("Category", CategorySchema);
+const Filter = mongoose.model("Filter", FilterSchema);
 
-module.exports = Category;
+module.exports = Filter;
