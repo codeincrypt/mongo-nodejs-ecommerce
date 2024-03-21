@@ -37,7 +37,7 @@ module.exports = {
     },
     getSubCategoryHome : async(slug) => {
         try {
-            const response = Category.find({slug:0}, {title:1, slug:1, image:1})
+            const response = Category.find({slug:slug}, {title:1, slug:1, image:1})
             .sort({ _id:-1})
             return response
         } catch (error) {
