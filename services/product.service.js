@@ -80,17 +80,53 @@ module.exports = {
   },
   getProducts: async (skip, limit) => {
     try {
-      const response = Product.find(
-        {},
-        { productId: 1, title: 1, categoryId: 1, image1: 1 }
-      )
-        .skip(skip)
-        .limit(limit)
-        .sort({ _id: -1 });
+      // const response = Product.find({}, { productId: 1, title: 1, categoryId: 1, image1: 1 })
+      //   .skip(skip)
+      //   .limit(limit)
+      //   .sort({ _id: -1 });
+      const response = Product.aggregate([
+        // Join with category table
+        {
+          $lookup: {
+            from: "categories",
+            localField: "categoryId",
+            foreignField: "_id",
+            as: "category",
+          },
+        },
+        // Unwind category array (this unwind is used to convert single array to an object)
+        { $unwind: "$category" },
+        // Lookup variants for the product (added variant table with parent table product)
+        {
+          $project: {
+            _id: 1,
+            productId: 1,
+            title: 1,
+            categoryId: 1,
+            image1: 1,
+            category: {
+              _id: 1,
+              title: 1,
+            }
+          },
+        },
+        { $skip : skip },
+        { $limit : Number(limit) },
+        { $sort : {title : -1} }
+      ]);
       return response;
     } catch (error) {
       console.error("Error in PRODUCT SERVICE :: getProducts : ", error);
       throw error;
     }
   },
+  getProductCount: async () => {
+    try {
+      const response = await Product.find().count();
+      return response
+    } catch (error) {
+      console.error("Error in PRODUCT SERVICE :: createNewProduct : ", error);
+      throw error;
+    }
+  }
 };

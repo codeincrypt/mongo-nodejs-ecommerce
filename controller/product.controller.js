@@ -42,9 +42,9 @@ module.exports = {
         try {
             const response = await productService.getProductById(id);
             if(response){
-                return res.send({statusCode:successCode, data : response[0], message: 'Product fetched successfully'});
+                return res.send({statusCode:successCode, message: 'Product fetched successfully', data : response[0]});
             } else {
-                return res.send({statusCode:successCode, data : {}, message: 'No Product found from this Product Id'});
+                return res.send({statusCode:successCode, message: 'No Product found from this Product Id', data : {}});
             }
         } catch (error) {
             console.log("PRODUCT CONTROLLER -- getProductById :: ", error);
@@ -56,10 +56,18 @@ module.exports = {
         try {
             let skip = (page-1)*limit
             const response = await productService.getProducts(skip, limit);
+            const responseCount = await productService.getProductCount();
             if(!response){
-                return res.send({statusCode:successCode, data:[], message: 'All Product fetched successfully'});
+                return res.send({statusCode:successCode, message: 'All Product fetched successfully', data:[]});
             }
-            return res.send({statusCode:successCode, data:response, message: 'All Product fetched successfully'});
+            return res.send({
+                statusCode:successCode,
+                message: 'All Product fetched successfully', 
+                data:response, 
+                totalData : responseCount,
+                pageData : response.length,
+                page : page
+            });
         } catch (error) {
             console.log("PRODUCT CONTROLLER -- getProducts :: ", error);
             return handleCustomError(res, error)

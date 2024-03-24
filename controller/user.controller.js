@@ -14,6 +14,9 @@ module.exports = {
     },
     getUserProfile : async (req, res) => {
         const userId = req.user.id
+        console.log('====================================');
+        console.log("userId", req.user);
+        console.log('====================================');
         try {
             const users = await userService.getUsersById(userId);
             return res.json({statusCode:successCode, data:users[0], message:'successful'});

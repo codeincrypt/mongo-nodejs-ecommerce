@@ -42,16 +42,14 @@ module.exports = {
 				let current_timestamp = Math.floor(Date.now() / 1000)
 				if ((Number(users.otptimestamp) + 10020 > Number(current_timestamp) && (Number(users.otp) === Number(otp)))) {
 					await userService.userUpdateDetails(filter, update);
-					const accessToken = jwt.sign(
-						{
-							user: {
-								name: users.name,
-								email: users.email,
-								id: users.id,
-							},
-						},
+					const accessToken = jwt.sign({
+						name: users.name,
+						email: users.email,
+						id: users._id,
+					},
 						JWT_SECRET,
-						{ expiresIn: "15m" });
+						{ expiresIn: "24h" }
+					);
 					return res.json({ statusCode: successCode, token: accessToken, data: usersData, message: 'successful' });
 				}
 				throw new UnauthorizedError(InvalidOtp);

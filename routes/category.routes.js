@@ -9,6 +9,6 @@ adminRouter.post('/addCategory', validateCategory, categoryController.addNewCate
 adminRouter.get('/getCategory/:id', categoryController.getCategory);
 adminRouter.get('/getCategory', categoryController.getCategory);
 homeRouter.get('/getCategory', categoryController.getCategoryHome);
-homeRouter.get('/getSubCategory', categoryController.getSubCategoryHome);
+// homeRouter.get('/getSubCategory', categoryController.getSubCategoryHome);
 
 module.exports = {adminRouter, homeRouter};
