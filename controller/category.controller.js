@@ -30,9 +30,9 @@ module.exports = {
         }
     },
     getSubCategory : async (req, res) => {
-        let slug = req.params.slug
+        const {category, page, limit} = req.query
         try {
-            const response = await categoryService.getSubCategory(slug);
+            const response = await categoryService.getSubCategory(category, page, limit);
             return res.send({statusCode:successCode, data:response, message: 'All Category fetched successfully'});
         } catch (error) {
             console.log("CATEGORY CONTROLLER -- getCategory :: ", error);
