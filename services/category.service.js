@@ -35,10 +35,19 @@ module.exports = {
             throw error;
         }
     },
+    
+    getSubCategory : async(slug) => {
+        try {
+            const response = Category.find({slug:slug}, {title:1, categoryId:1, slug:1, parentId:1, image:1})
+            return response
+        } catch (error) {
+            console.error('Error in CATEGORY SERVICE :: getCategory : ', error);
+            throw error;
+        }
+    },
     getSubCategoryHome : async(slug) => {
         try {
             const response = Category.find({slug:slug}, {title:1, slug:1, image:1})
-            .sort({ _id:-1})
             return response
         } catch (error) {
             console.error('Error in CATEGORY SERVICE :: getCategory : ', error);

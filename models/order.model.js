@@ -17,6 +17,10 @@ const OrderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, ref: "User",
     required: true,
   },
+  sellerId: {
+    type: mongoose.Schema.Types.ObjectId, ref: "Seller",
+    required: true,
+  },
   quantity: {
     type: Number,
     required: true,
@@ -46,6 +50,14 @@ const OrderSchema = new mongoose.Schema({
     required: true,
   },
   paymentStatus: {
+    type: String,
+    required: true,
+  },
+  orderDate : {
+    type: String,
+    required: true,
+  },
+  orderTime : {
     type: String,
     required: true,
   },

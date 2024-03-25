@@ -14,12 +14,9 @@ module.exports = {
     },
     getUserProfile : async (req, res) => {
         const userId = req.user.id
-        console.log('====================================');
-        console.log("userId", req.user);
-        console.log('====================================');
         try {
             const users = await userService.getUsersById(userId);
-            return res.json({statusCode:successCode, data:users[0], message:'successful'});
+            return res.json({statusCode:successCode, message:'Profile fetch successfully', data:users[0]});
         } catch (error) {
             console.log("USER CONTROLLER -- getUserProfile :: ", error);
             return res.status(500).json({ message: error.message,statusCode:errorCode });
@@ -28,7 +25,7 @@ module.exports = {
     getAllUsers : async (req, res) => {
         try {
             const users = await userService.getUsers();
-            return res.json({statusCode:successCode, data:users, message:'successful'});
+            return res.json({statusCode:successCode, message:'User fetch successful', data:users});
         } catch (error) {
             console.log("USER CONTROLLER -- getAllUsers :: ", error);
             return res.status(500).json({ message: error.message,statusCode:errorCode });
@@ -38,7 +35,7 @@ module.exports = {
         try {
             const userId = req.user.id
             const users = await userAddressService.getUserAddress(userId);
-            return res.json({statusCode:successCode, data:users, message:'successful'});
+            return res.json({statusCode:successCode, message:'successful', data:users});
         } catch (error) {
             console.log("USER CONTROLLER -- getUserAddress :: ", error);
             return res.status(500).json({ message: error.message,statusCode:errorCode });
@@ -70,10 +67,10 @@ module.exports = {
         }
     },
     updateDefaultAddress : async (req, res) => {
-        const {addressId} = req.body
+        const { addressId } = req.body
         const userId = req.user.id
         try {
-            let update = { address: addressId}
+            let update = { address: addressId }
             let filter = { _id:userId }
             const result = await userService.userUpdateDetails(filter, update);
             if(result.status === 1){

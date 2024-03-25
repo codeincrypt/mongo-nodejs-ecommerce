@@ -45,7 +45,17 @@ module.exports = {
             const response = await categoryService.getCategory(slug);
             return res.send({statusCode:successCode, data:response, message: 'All Category fetched successfully'});
         } catch (error) {
-            console.log("CATEGORY CONTROLLER -- getCategory :: ", error);
+            console.log("CATEGORY CONTROLLER -- getCategoryHome :: ", error);
+            return handleCustomError(res, error)
+        }
+    },
+    getSubCategoryHome : async (req, res) => {
+        let slug = req.params.slug
+        try {
+            const response = await categoryService.getCategory(slug);
+            return res.send({statusCode:successCode, data:response, message: 'All Category fetched successfully'});
+        } catch (error) {
+            console.log("CATEGORY CONTROLLER -- getCategoryHome :: ", error);
             return handleCustomError(res, error)
         }
     }
